@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Gesture Communicator</title>
+    <link rel="icon" href="{{ url_for('favicon') }}" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        #videoFeed {
+            width: 100%;
+            max-width: 640px;
+            height: auto;
+            display: none;
+        }
+        #gestureOutput {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        #messageBox {
+            width: 100%;
+            height: 100px;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        #stopBtn {
+            background-color: #f44336;
+        }
+        #stopBtn:hover {
+            background-color: #da190b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hand Gesture Communicator</h1>
+        <button id="startBtn" class="btn">Start Camera</button>
+        <button id="stopBtn" class="btn">Stop Camera</button>
+        <img src="{{ url_for('video_feed') }}" alt="Video Feed" id="videoFeed">
+        <div id="gestureOutput">Detected Gestures: </div>
+        <textarea id="messageBox" readonly></textarea>
+    </div>
+
+    <script>
+        const videoFeed = document.getElementById('videoFeed');
+        const gesturesElement = document.getElementById('gestures');
+        const messageBox = document.getElementById('messageBox');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        let isActive = false;
+
+        startBtn.addEventListener('click', startCamera);
+        stopBtn.addEventListener('click', stopCamera);
+
+        function startCamera() {
+            fetch('/api/start_camera', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.status);
+                    isActive = true;
+                    videoFeed.src = "{{ url_for('video_feed') }}";
+                    videoFeed.style.display = 'block';
+                    gesturesElement.textContent = 'Camera is on. Gesture detection is disabled.';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function stopCamera() {
+            fetch('/api/stop_camera', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.status);
+                    isActive = false;
+                    videoFeed.src = "";
+                    videoFeed.style.display = 'none';
+                    gesturesElement.textContent = 'Camera is off.';
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        
+    </script>
+</body>
+</html>
+
+
+
