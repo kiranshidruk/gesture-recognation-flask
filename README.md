@@ -1,11 +1,12 @@
-# hand-gesture-recognition-using-mediapipe
-Estimate hand pose using MediaPipe (Python version).<br> This is a sample 
-program that recognizes hand signs and finger gestures with a simple MLP using the detected key points.
-<br> ❗ _️**This is English Translated version of the [original repo](https://github.com/Kazuhito00/hand-gesture-recognition-using-mediapipe). All Content is translated to english along with comments and notebooks**_ ❗
-<br> 
+# Gesture-Recognition-Flask
+
+
+In this project, I deployed a hand gesture recognition system by methodically exploring GitHub repositories, refining code, and integrating it into a Flask backend API. I identified and evaluated pre-trained gesture recognition models, selecting hand-gesture-recognition-mediapipe
+https://github.com/kinivi/hand-gesture-recognition-mediapipe.git  that best fit my goals. After refactoring the chosen repository, I embedded the model into a Flask API, set up endpoints for model inference, and ensured smooth integration with the existing API structure without disrupting functionality.
+
 ![mqlrf-s6x16](https://user-images.githubusercontent.com/37477845/102222442-c452cd00-3f26-11eb-93ec-c387c98231be.gif)
 
-This repository contains the following contents.
+This repository contains the following.
 * Sample program
 * Hand sign recognition model(TFLite)
 * Finger gesture recognition model(TFLite)
@@ -20,74 +21,23 @@ This repository contains the following contents.
 * matplotlib 3.3.2 or Later (Only if you want to display the confusion matrix)
 
 # Demo
-Here's how to run the demo using your webcam.
+Install required packages
+
+```bash
+pip install -r requirements.txt
+```
+
+Running the hand-gesture-recognition model
+
 ```bash
 python app.py
 ```
 
-The following options can be specified when running the demo.
-* --device<br>Specifying the camera device number (Default：0)
-* --width<br>Width at the time of camera capture (Default：960)
-* --height<br>Height at the time of camera capture (Default：540)
-* --use_static_image_mode<br>Whether to use static_image_mode option for MediaPipe inference (Default：Unspecified)
-* --min_detection_confidence<br>
-Detection confidence threshold (Default：0.5)
-* --min_tracking_confidence<br>
-Tracking confidence threshold (Default：0.5)
+Deployment link:
 
-# Directory
-<pre>
-│  app.py
-│  keypoint_classification.ipynb
-│  point_history_classification.ipynb
-│  
-├─model
-│  ├─keypoint_classifier
-│  │  │  keypoint.csv
-│  │  │  keypoint_classifier.hdf5
-│  │  │  keypoint_classifier.py
-│  │  │  keypoint_classifier.tflite
-│  │  └─ keypoint_classifier_label.csv
-│  │          
-│  └─point_history_classifier
-│      │  point_history.csv
-│      │  point_history_classifier.hdf5
-│      │  point_history_classifier.py
-│      │  point_history_classifier.tflite
-│      └─ point_history_classifier_label.csv
-│          
-└─utils
-    └─cvfpscalc.py
-</pre>
-### app.py
-This is a sample program for inference.<br>
-In addition, learning data (key points) for hand sign recognition,<br>
-You can also collect training data (index finger coordinate history) for finger gesture recognition.
 
-### keypoint_classification.ipynb
-This is a model training script for hand sign recognition.
+Running on```http://127.0.0.1:5000```
 
-### point_history_classification.ipynb
-This is a model training script for finger gesture recognition.
-
-### model/keypoint_classifier
-This directory stores files related to hand sign recognition.<br>
-The following files are stored.
-* Training data(keypoint.csv)
-* Trained model(keypoint_classifier.tflite)
-* Label data(keypoint_classifier_label.csv)
-* Inference module(keypoint_classifier.py)
-
-### model/point_history_classifier
-This directory stores files related to finger gesture recognition.<br>
-The following files are stored.
-* Training data(point_history.csv)
-* Trained model(point_history_classifier.tflite)
-* Label data(point_history_classifier_label.csv)
-* Inference module(point_history_classifier.py)
-
-### utils/cvfpscalc.py
-This is a module for FPS measurement.
 
 # Training
 Hand sign recognition and finger gesture recognition can add and change training data and retrain the model.
@@ -137,14 +87,11 @@ The image of the model prepared in "[point_history_classification.ipynb](point_h
 The model using "LSTM" is as follows. <br>Please change "use_lstm = False" to "True" when using (tf-nightly required (as of 2020/12/16))<br>
 <img src="https://user-images.githubusercontent.com/37477845/102246817-8368b180-3f42-11eb-9851-23a7b12467aa.png" width="60%">
 
+
+
 # Reference
 * [MediaPipe](https://mediapipe.dev/)
 
 # Author
-Kazuhito Takahashi(https://twitter.com/KzhtTkhs)
+Kiran Shidruk
 
-# Translation and other improvements
-Nikita Kiselov(https://github.com/kinivi)
- 
-# License 
-hand-gesture-recognition-using-mediapipe is under [Apache v2 license](LICENSE).
