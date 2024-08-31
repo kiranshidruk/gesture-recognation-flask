@@ -41,6 +41,14 @@ Running the hand-gesture-recognition model
 python app.py
 ```
 
+If you get  below error then install specific version of mediapipe
+
+```bashSplitTensorVectorCalculator: The number of output streams should match the number of ranges specified in the CalculatorOptions.```
+
+```bash
+pip install mediapipe==0.9.3.0
+```
+
 Deployment link:
 
 
