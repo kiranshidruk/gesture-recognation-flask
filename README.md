@@ -32,7 +32,7 @@ conda activate gestureMedia
 Install required packages
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 
 Running the hand-gesture-recognition model
